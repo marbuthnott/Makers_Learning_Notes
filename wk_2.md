@@ -186,24 +186,6 @@ Essentially printing our feature test from `irb` into a feature test within a fi
 
 ## Thurs 9th May 2019
 
-### Cont. Daily Goal - Digest Airport Challenge Youtube
-
-* **Use of `private`**. Use private for methods that you don't need to call out side of a class. Such as:
-
-```
-class Airport do
-  def land(plane)
-    raise 'Cannot land plane: airport full' if full?
-  end
-
-  private
-
-  def full?
-    @planes.length >= @capacity
-  end
-end
-```
-
 ### Reflective Learning
 
 * Alice Lieutier
@@ -315,3 +297,96 @@ let(:todo_class) { double(:todo_class, new: todo) }
 Here a `todo` double is created. `todo_class` is created and it is set to call `new` on it and return a `todo` double.
 
 * Start on feature test. Try to mimic error messages on user test.
+
+### Cont. Daily Goal - Digest Airport Challenge Youtube
+
+* **Use of `private`**. Use private for methods that you don't need to call out side of a class. Such as:
+
+```
+class Airport do
+  def land(plane)
+    raise 'Cannot land plane: airport full' if full?
+  end
+
+  private
+
+  def full?
+    @planes.length >= @capacity
+  end
+end
+```
+* **Predicate statement**. A predicate is a boolean value. A predicate statement will always return a boolean value and will have a `?` at the end. We can then replace this code:
+```
+def full
+  if @planes.length >= @capacity
+    true
+  else
+    false
+  end
+end
+```
+With this code:
+```
+def full?
+  @planes.length >= @capacity
+end
+```
+* Use of `before` within rspec. Can be used immediately after `context` statements and helps to improve DRY code:
+```
+before do
+  allow(airport).to receive(:stormy?).and_return false
+end
+```
+
+### Pairing w/ Lucy Barber on oystercard_challenge
+
+* **Porting**. Porting is the process of adapting software for the purpose of achieving some form of execution in a computing environment that is different from the one that a given program (meant for such execution) was originally designed.
+
+## Friday 10th May 2019
+
+### TDD Workshop
+
+* Sophie Gill
+
+**Objectives**
+
+**Challenge**
+
+* Build a roman numeral app
+
+**Step 1** - Have a clear understanding of the problem
+* What should the code do?
+  * Takes a positive integer between 1 - 10
+  * Converts integer to a roman numeral
+  * Converts 1 to 'I'
+  * Converts 2 to 'II'
+  * Converts 3 to 'III'
+  * Converts 4 to 'IV'
+  * ...
+
+* One line summary of the app and what it should do
+  * Converts a positive integer up to 10 to a roman numeral
+
+**Step 2** - Start to write a test
+
+* If there are multiple classes then a feature test is more applicable. If there is only one it is possible to immediately produce a unit test.
+* class is Roman Numeral
+* method is convert
+* a good test to start with:
+```
+describe RomanNumeral do
+  describe '#convert' do 
+    expect(subject.convert(1)).to eq 'I'
+  end
+end
+```
+
+**Step 3** - Write code to pass
+
+### Set up takeaway-challenge
+
+* Open / closed principle. Classes should be open for extension but closed for modification. It means that the dishes data should not be held within the class as a constant.
+* We inject a hash of dishes inside the `menu` class.
+
+* Using dependency injection to test `menu.print` within the `menu` class. Dependency injection creates a `dishes` which we pass to `menu` as an argument whenever we create a new one.
+**GOALS**
