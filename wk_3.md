@@ -3,6 +3,8 @@
 
 ## Mon 13th May 2019
 
+### Qs over the course of the week
+
 ### Weekly Goals
 
 * Build a simple web app
@@ -114,6 +116,8 @@
 
 * `shotgun app.rb -p 4567` this tells the system to run `app.rb` with `shotgun`. `-p` specifies which port to use; thereby keeping the same local address.
 
+* Use the URL `http://localhost:4567/` to access
+
 * **Separation of Concerns** - design principle for separating a computer program into distinct sections. I.e. separating each language to it's specific file. There will be an html file, a css file and a JS file.
 
 * `erb` (embedded ruby) is a templating system. Embedded ruby means that the templates can combine plain text, such as HTML code, with executable Ruby code. Used to call the `index` file which contains the HTML code with `erb(:index)`.
@@ -133,3 +137,210 @@ More info at [Makers - Params pill](https://github.com/makersacademy/course/blob
 `@username = params[:username]`
 will be inputed in the query string like:
 `?username=marbuthnott`
+
+## Tues 14th May 2019
+
+### takeaway_challenge cont.
+
+* `rsepc mocks` on github provide comprehensive list of syntax
+
+* Use of **instance doubles** where it is possible to test the method against the class it is being called against, even if that is not the correct spec file.
+
+`let(:menu) { instance_double("Menu") }`
+
+### Modelling the HTTP request/response cycle
+
+* Alice Lieutier
+
+* Wk 3 workshop - [Process modelling, applied to HTTP request/response cycle](https://github.com/makersacademy/skills-workshops/tree/master/week-3/process_modelling)
+
+* Use `inspect` from the right click menu to see the HTML code.
+
+* `network` tab shows all activity on the web page's network.
+    * `Headers` sub tab shows `status codes` (i.e. whether the site is working. numbers range from 100-500)
+    * 1xx, 2xx: all ok, 3xx: redirect, 4xx: client error, 5xx: server error.
+
+* **Request Headers** within `inspect`, `network` and `headers`:
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en-US;q=0.9,en;q=0.8
+Cache-Control: max-age=0
+Connection: keep-alive
+Host: makers-cats.herokuapp.com
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36
+
+* **Response Headers** within `inspect`, `network` and `headers`:
+
+Connection: keep-alive
+Content-Length: 219
+Content-Type: text/html;charset=utf-8 ***direct reply to the client***
+Date: Tue, 14 May 2019 09:07:04 GMT
+Server: WEBrick/1.3.1 (Ruby/2.3.4/2017-03-30)
+Via: 1.1 vegur
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Xss-Protection: 1; mode=block
+
+* Link to cheatsheet by myself and Remi.
+
+* Great link!! [HTTP and Websockets: Understanding the capabilities of today’s web communication technologies](https://medium.com/platform-engineer/web-api-design-35df8167460)
+
+    * HTTP the underlying comms protocol of WWW. Request-response protocol in the client-server computing model.
+
+### Afternoon pairing - HTTP
+
+* W/ Frankie
+
+**Starting from Step: Sinatra Views**
+
+**Gemfiles**
+
+* When opening a project, create a Gemfile with the requirements and `source "https://rubygems.org"`.
+
+* **Tags in HTML** - here we create an h1 (header1) tag `<h1>This is heading 1</h1>`.
+
+* Use `p params` to execute it in the terminal:
+```
+get '/named-cat' do
+  p params
+  @name = params[:name]
+  @age = params[:age]
+  erb(:index)
+end
+``` 
+In the Ruby file. And the following in the `index.erb`:
+```
+<div
+style='border: 3px dashed red'>
+<img src='http://bit.ly/1eze8aE'>
+</div>
+
+<h1>Hi there, Visitor! <%= @name %>. Who is <%= @age %> years old! </h1>
+```
+Now if you type this in as a URL `http://localhost:4567/named-cat?name=Magnus&age=60`. - this part of the URL `name=Magnus&age=60` is the query string.
+
+* Using form to get input from the user on the web page as opposed to having it written into the URL:
+```
+<form action="/named-cat">
+  First name: <input type="text" name="name">
+  Age: <input type="text" name="age">
+  <input type="submit" value="Submit">
+</form>
+```
+* Using an `if` statement within HTML:
+```
+<% if !@name.empty? %>
+<h1>My name is <%= @name%>. And i am <%= @age %> years old!!</h1>
+<% end %>
+```
+
+* Example of an incoming request from our server logs:
+[image](https://github.com/makersacademy/course/blob/master/intro_to_the_web/images/sinatra_get_request.png)
+[image](https://github.com/makersacademy/course/blob/master/intro_to_the_web/images/sinatra_get_request_annotated.jpg)
+
+* Set of common methods for HTTP:
+    * [Link](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) to method definitions.
+    * **GET**: retrieve information
+    * **POST**: modify a resource
+    * **OPTIONS**: a request for information about the communication options available on the request/response chain.
+    * **HEAD**: identical to GET except the server MUST NOT return a message-body.
+    * **PUT**: requests that the enclosed entity be stored under the supplied Request-URI (an already existing resource).
+    * **DELETE**: origin server delete the resources identified by the Request-URI.
+    * **CONNECT**: for use with a proxy that can dynamically switch to being a tunnel.
+
+## Wed 15th May 2019
+
+### Daily Goals
+
+* [Domain Modeling Workshop](https://github.com/makersacademy/skills-workshops/tree/master/week-2/domain_model_diagramming)
+* Start Birthday Greeter App - [Link to Makers workshop](https://github.com/makersacademy/course/blob/master/intro_to_the_web/post_challenges/birthday_app.md)
+
+### Empathy Workshop
+
+* Dana
+
+**Effects of empathy**
+
+* Empathy is critical in building trust. If an individual makes the effort to demonstrate an understanding of someone else's emotions, that process helps to build trust.
+
+* 3 types of empathy:
+  * Affective empathy
+  * Empathic concern
+  * Cognitive empathy
+
+**Effective tools**
+
+* 'Just like me' concept. Relate to other people and draw out similarities
+* Metta Bhavana - simply wanting to please others/ make them happy
+* Empathetic Listening - giving an individual full attention as opposed to waiting for the next opportunity to speak
+
+### Birthday Greeter App
+
+* Using capybara with RSpec.
+* Capybara is a web-based test automation software that simulates scenarios for user stories and automates web application testing for behavior-driven software development. Written specifically for Ruby.
+
+* Using the sinatra MVC (Models, Views, and Controllers).
+    * creates `models`, `views`, and `controllers` folder.
+    * optional `helpers` and `lib` folders.
+
+### Afternoon pairing
+
+* Vijay
+
+* Within RSpec to test private methods use `.send` methods.
+
+* Use of private methods
+
+* `brew cask install firefox` installs Firefox browser
+
+* Capybara default to use firefox app
+
+* Manipulate capybara from the `pry` repl:
+    * `click_button 'Click me!'` - will select specified button
+    * `check('first')` - will check first box. `second` for second box.
+    * [Capybara workout](http://capybaraworkout.herokuapp.com/workout)
+
+???
+```
+require 'sinatra/base'
+
+class Battle < Sinatra::Base
+    get '/' do
+        'Hello Battle'
+    end
+
+    run! if app_file == $0
+
+end
+```
+* Almost every Capybara feature test involves this process:
+
+    *  What does the user have to do?
+    *  What does the user expect to see?
+
+**Pairing Review**
+
+* Discussed daily goals:
+    * Test driving private methods via `.send`.
+    * Discussed use of `context` within RSpec
+* Initialised the battle web app
+* Sorted Gemfile
+* Set up config.ru
+* Familiarised with capybara
+* Initialised server through `rackup`
+* Created web app to receive names, store as `session` instance variables, created POST-redirect loop to avoid rendering a view from a POST request, and returned to `view` via `get '/play'`.
+
+* **Worked well**
+    * Working through daily goals at start of pairing session
+    * Being thorough
+
+## Thu 16th May 2019
+
+### Daily goals
+
+* Web debugging workshop w/ Alice Lieutier
+* Servers practical. [Link](https://github.com/makersacademy/skills-workshops/blob/master/practicals/servers_and_clients/servers.md)
+
+### Servers practical
