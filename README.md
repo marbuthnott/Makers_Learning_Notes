@@ -1,4 +1,4 @@
-# Makers_Learning_Notes
+# makers_learning_notes
 
 ## Introduction to the project
 
