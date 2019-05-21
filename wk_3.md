@@ -1,9 +1,28 @@
-## Week 2
+## Week 3
 ## w/c 13th May 2019
 
 ## Mon 13th May 2019
 
 ### Qs over the course of the week
+
+* srand. used as a stub. how does it work. [srand](https://gist.github.com/Kotauror/8f4a9913c53dd479df91909f306e6731)
+
+* Visual Studio - Files are highlighted either red of green??
+
+* During `Battle` pairing with Ray, `game.attack(player_2)` executed after `receive` test
+```
+  describe '#attack' do
+    it 'damages the player' do
+      expect(player_2).to receive(:receive_damage)
+      game.attack(player_2)
+    end
+  end
+```
+* `srand`
+
+* Use of the `Kernel` -> module that is used within Ruby. ( a module is a library of methods; the difference is that it can not be instantiated as an object).
+
+* Request/response in web apps
 
 ### Weekly Goals
 
@@ -344,3 +363,111 @@ end
 * Servers practical. [Link](https://github.com/makersacademy/skills-workshops/blob/master/practicals/servers_and_clients/servers.md)
 
 ### Servers practical
+
+* Exposure to `srand`. Explanation at [srand in RSPEC stubbing](https://gist.github.com/Kotauror/8f4a9913c53dd479df91909f306e6731)
+
+### Debugging Workshop
+
+* w/ Alice Lieutier
+
+Focusing on mantra
+    * **Tighten the loop**
+    * **Get Visibility**
+
+What is debugging?
+    * Find bugs
+    * Understanding why they happen
+    * Fixing them
+
+Bugs can be **errors** or **unexpected behaviors**
+
+Different forms of Error:
+    * **Runtime**
+        * NameERROR (most common with `uninitialized constant` and `undefined variable`
+    * **Syntax**
+        * Missing bracket, end or any other.
+        * Will throw out code without running it.
+
+Unexpected behaviors:
+    * **Program does not terminate** - infinite loops
+    * **Too slow** - hardest to locate, can be similar to infinite loops
+
+Two principle computing languages **Compiled Language** and **Interpreted Language**.
+
+Compiled Language:
+    * Step 1 - Compiles code
+    * Step 2 - Run
+    * Will not run code if there is an error in the code.
+    * C, Java
+
+Interpreted Language:
+    * Step 1 - Runs code systematically
+    * Will run code and return results until it hits an error.
+    * Ruby, JS
+
+Debugging techniques:
+    * Look at the error message:
+        * understand what it means
+    * Look at the exact line in the stack
+    * Look at the flow of content
+        * order of execution
+    * Get visibility
+        * printing (p). Place print methods in areas of code flow, compare expected behavior at print to actual behavior.
+    * Open web page/app - essentially feature testing it
+    * **pry** - debugging software. MOST USEFUL
+
+(useful terminal terminology:
+`/` takes you to the root
+`~` takes you to the user directory)
+
+Useful `Capybara` syntax:
+    * `save_and_open_page`
+
+### Afternoon pairing - Battle Challenge
+
+* w/ Edina
+
+* `rackup` is another version of running a server. When you are working params use rackup. Requires a `config.ru` file with content:
+```
+require_relative "./app"
+
+run Battle
+```
+
+**Pairing Review**
+
+* Introduced hit_points within the #attack
+* Refactored for Single Responsibility Principle (SRP). Created Game class and moved #attack into it.
+* Slimed down controller by moving `players` to Game as parameters.
+
+## Fri 17th May 2019
+
+### Daily Goals
+
+* Servers practical. [Link](https://github.com/makersacademy/skills-workshops/blob/master/practicals/servers_and_clients/servers.md)
+
+### Servers Practical
+
+* Useful web link: [ruby-doc](https://ruby-doc.org/stdlib-2.4.0/libdoc/socket/rdoc/TCPServer.html)
+
+* From another laptop it is possible to connect to the local server on your own terminal. 
+    * First of all in your own terminal starting running the file with the server instance; this should open the server.
+    * From another laptop type `telnet XXX.XXX.XX.XX 2345`. Where `XXX.XXX.XX.XX` is my terminals IP address and `2345` is the port number.
+    * Use `ifconfig en0` to discover the IP address. It will be the label starting with `inet`
+
+* [completed workshop](https://github.com/marbuthnott/servers_introduction)
+
+* Updated learning portfolio
+
+### Birthday Greeter App cont.
+
+* when the `sinatra` gem is installed and `require 'sinatra'` is called at the top of the file, it will automatically open a port XXXX for development with backup from WEBrick.
+
+### Afteroon pairing on Battle
+
+* w. Ray
+
+### End of Week retrospective
+
+* HTTP Protocol - to explain difference between `GET` and `POST`
+
