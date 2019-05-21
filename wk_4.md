@@ -107,7 +107,7 @@ One to many relationships:
 * Worked in group w/ Laurence, Edina, and Lisa through receiving user stories and converting into a 'T' shaped graph and then translated into a table.
 
 <p align="center">
-  <img width="460" height="300" src="https://github.com/marbuthnott/makers_learning_notes/blob/master/images/IMG_20190521_114336.jpg?raw=true/460/300">
+  <img width="800" height="600" src="https://github.com/marbuthnott/makers_learning_notes/blob/master/images/IMG_20190521_114336.jpg?raw=true/800/600">
 </p>
 
 * Specific use of many-to-many.
