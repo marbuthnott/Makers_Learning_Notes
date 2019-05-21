@@ -105,6 +105,11 @@ One to many relationships:
   * `foreign key` - A FOREIGN KEY is a key used to link two tables together.
 
 * Worked in group w/ Laurence, Edina, and Lisa through receiving user stories and converting into a 'T' shaped graph and then translated into a table.
+
+<p align="center">
+  <img width="460" height="300" src="https://github.com/marbuthnott/makers_learning_notes/blob/master/images/IMG_20190521_114336.jpg?raw=true/460/300">
+</p>
+
 * Specific use of many-to-many.
 
 * Useful links. [Ruby Database Basics](https://www.learnhowtoprogram.com/ruby/ruby-database-basics/database-schema-and-relationship-types)
