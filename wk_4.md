@@ -16,6 +16,8 @@
 
 * ENVIRONMENTAL variables??
 
+* Step 11 on bookmark challenge. When adding a `url`. Tests passing yet throwing error when feature testing it through `rackup`. Also walkthrough suggests it should be failing.
+
 ## Mon 20th May 2019
 
 ### Code Review
@@ -327,3 +329,68 @@ What we did (summary):
 * Started step 11.
 
 Cosmin suggested a learning resource, `Jesus Costello` who has a youtube account focused on ruby fundamentals.
+
+## Mon 20th May 2019
+
+**Daily Goals**
+
+* Continue with takeaway challenge youtube walkthrough:
+  * Improve understanding of Twilio.
+* 1hr on process workshop - improve understanding of working in multiple environments.
+* Focus on web apps with databases - complete the [Daily Diary](https://github.com/toddpla/daily-diary) project on github.
+
+**Goals Completed**
+
+*
+
+### Cont. Takeaway challenge youtube walkthrough
+
+SETTING UP TWILIO FOR OUTBOUND CALLS
+* `gem ruby-twilio` in the Gemfile
+* create `make_call.rb` or `send_text.rb`. In the file include:
+  * `require("bundler")`
+  * `Bundler.require`
+  * Declare our account variables. Look something like the below. They are stored in environment variables for safe keeping but could be called directly with `account_sid = "ACxxxxxxxx"` and `auth_token = "fjiewofjdsklaf"`:
+    * `account_sid = ENV["TWILIO_ACCOUNT_SID"]`
+    * `auth_token = ENV["TWILIO_AUTH_TOKEN"]`
+  * Variables used to create twilio rest client:
+    * `@client = Twilio::REST::Client.new(account_sid, auth_token)`
+  * Use the rest client to create a phone call:
+    * Again phone number is stored as an environment variable for safe keeping).
+    * `from` number is the number you purchased from the twilio numbers console.
+    * `url` is the website that twilio uses to find instructions on what to say - this one's just a demo. It essentially it runs some HTTP code.
+  ```  
+  @client.calls.create(
+    to: ENV["MY_PHONE_NUMBER], 
+    from: "+12152341751",
+    url: "http://demo.twilio.com/docs/voice.xml"
+  )
+  ```
+* back to terminal and run `bundle exec ruby make_call.rb`
+
+SETTING UP TWILIO FOR INBOUND CALLS
+* `gem sinatra` in Gemfile
+* `bundle` to install
+* create `app.rb` file to include:
+  * `require "bundler"` - using Bundler to pull in the Twilio bundler helper library and sinatra web framework
+  * `Bundler.require()`
+  * Create a `post` route called `/voice` where twilio will request some TwiLM when a call comes in. This uses text to speech to say "Hello from your pals at Twilio":
+```
+post "/voice" do
+  Twilio::TwiML::VoiceResponse.new do |r|
+    r.say("Hello from your pals at Twilio")
+  end.to_s
+end
+```
+Here `end.to_s` will return the string representation out of this route
+
+* back to terminal and run `bundle exec ruby app.rb` - this will start a server on a given port within localhost (it will print the port you are using).
+* create an ngrok tunnel to get twilio to reach our local host code, by typing - `ngrok http 4567` where `4567` is the specific port.
+  * the ngrok will give a publicly accessible url which can be copied (it's the `Forwarding`, `https` url). Then posted into the twilio app to link to when calls come in, paste under the `A CALL COMES IN` with `Webhook` and `HTTP POST` selections.
+
+### Daily Diary Web App - Workshop
+
+* [Daily Diary - github](https://github.com/toddpla/daily-diary)
+* [Daily Diary - Diode](https://diode.makersacademy.com/students/soph-g/projects/2074)
+
+* Project to diagram the Entity relationships. Draw.io file stored in ./workshops/practicals/daily-diary
