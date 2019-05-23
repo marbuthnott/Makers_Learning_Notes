@@ -395,4 +395,4 @@ Here `end.to_s` will return the string representation out of this route
 
 * Project to diagram the Entity relationships. Draw.io file stored in ./workshops/practicals/daily-diary
 
-![Daily Diary Workshop (https://github.com/marbuthnott/makers_learning_notes/blob/master/images/Untitled%20Diagram.jpg)]
+![Daily Diary Workshop](https://github.com/marbuthnott/makers_learning_notes/blob/master/images/Untitled%20Diagram.jpg)
