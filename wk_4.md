@@ -5,6 +5,17 @@
 
 * config.ru vs running ruby app.rb with `run! if app_file == $0` at the bottom.
 
+* How does the following code work? Does it set `order` and `sms` with default values?:
+```
+  def initialize(menu:, order: nil, sms: nil)
+    @menu = menu
+    @order = order || Order.new(menu)
+    @sms = sms || SMS.new
+  end
+```
+
+* ENVIRONMENTAL variables??
+
 ## Mon 20th May 2019
 
 ### Code Review
@@ -221,6 +232,12 @@ PROCESS FOR SETTING UP A TESTING ENVIRONMENT:
 
 * [Hackmd example from Makers](https://hackmd.io/SQFve009TPah8w97EDfPew?both)
 
+* Useful example created as a flow chart in draw.io:
+
+![Flow chart created in draw.io](https://github.com/marbuthnott/makers_learning_notes/blob/master/images/Untitled%20Diagram-ERD%20Data%20Structure%20-%20Habit%20Tracker%20App.jpg?raw=true)
+
+* `draw.io` has specific ERD tab.
+
 **Definition**
 An Entity Relationship Diagram shows the relationships of entity sets stored in a database. An entity in this context is an object. An entity set is a collection of similar entities.
 
@@ -231,3 +248,82 @@ ERDs are used to sketch out the design of a database.
 * Entity represented by a **rectangle** is an object or concept about which you want to store information.
 * Actions are represented by **diamond** shapes. They show how two entities share information in the database.
 * **Ovals** are attributes. A key attribute is the unique distinguishing characteristic of the entity. An employees social security number might be the employee's key attribute.
+
+## Continued review of Takeaway Challenge on youtube
+
+Questioned the use of the following code to instantiate with default values:
+```
+  def initialize(menu:, order: nil, sms: nil)
+    @menu = menu
+    @order = order || Order.new(menu)
+    @sms = sms || SMS.new
+  end
+  ```
+## Afternoon pairing
+
+* w/ Cosmin
+
+### Cont. SETTING UP A TEST ENVIRONMENT
+
+* Created a `bookmarks_manager_test`. In psql run:
+```
+CREATE DATABASE "bookmark_manager_test";
+```
+* Create an identical table in `bookmarks_manager_test` that we have in `bookmark_manager`:
+```
+CREATE TABLE bookmarks(id SERIAL PRIMARY KEY, url VARCHAR(60));
+```
+
+* Introduced environmental variables using `p ENV` in `app.rb`.
+
+* Added `ENV['ENVIRONMENT'] = 'test'` to the top of our `spec_helper.rb`. This instantiates a test environment whenever we run `rspec`.
+
+* Updated `bookmarks.rb` with the following:
+```
+  def self.all
+    if ENV['ENVIRONMENT'] == 'test'
+      conn = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      conn = PG.connect(dbname: 'bookmark_manager')
+    end
+    
+    result = conn.exec("SELECT * FROM bookmarks;")
+    result.map { |bookmark| bookmark['url'] }
+  end
+  ```
+  Here we added an `if` statement to the method. It calls the `test` environment when we run rspec.
+
+* Every time rspec is run new entries are made to the `test` database and respective table. Therefore after each test we must remove these entries. Create `setup_test_database.rb` and insert the following:
+```
+require 'pg'
+
+p "Setting up test database..."
+
+conn = PG.connect(dbname: 'bookmark_manager_test')
+
+# Clear the bookmarks table
+conn.exec("TRUNCATE bookmarks;")
+```
+`TRUNCATE` removes the contents of the `bookmarks` table. Now every time we execute `rspec` in the command line is clear the contents of the table. Ideally we would have this executing at the beginning of each test. This can be achieved with the following at the top of our `spec_helper`:
+```
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+  end
+end
+```
+
+**PAIRING REVIEW**
+
+What went well:
+* Good switching scheme. Adhered to the timer but completed each task before switching.
+* Thorough understanding of concept before moving to next step.
+
+What we did (summary):
+* Created testing environment for database
+* Altered the database by being able to enter new rows via the app.rb and #add within the bookmarks.rb file.
+* Refactored.
+* Added new columns.
+* Started step 11.
+
+Cosmin suggested a learning resource, `Jesus Costello` who has a youtube account focused on ruby fundamentals.
