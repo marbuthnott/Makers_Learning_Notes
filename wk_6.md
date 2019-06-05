@@ -75,7 +75,7 @@ DataMapper comes with the ability to use the same API to talk to a multitude of 
 * Morning spent reconfiguring DataMapper and linking with a remote database hosted on Heroku. Chris Plant set up.
 
 * Created database model:
-![Database Model](./Users/student/Google_Drive/environment/makers_notes/images/makersbnb_database_model.jpg)
+![Database Model](https://github.com/marbuthnott/makers_learning_notes/blob/master/images/makersbnb_database_model.jpg?raw=true)
 
 ## Wednesday 5th June 2019
 
@@ -84,7 +84,7 @@ DataMapper comes with the ability to use the same API to talk to a multitude of 
 * Finalised sign in and login functions on Makers BnB. Working with Cosmin.
 
 * Created sign up domain model:
-![SignUp Domain Model](./Users/student/Google_Drive/environment/makers_notes/images/makersbnb_signup.jpg)
+![SignUp Domain Model](./images/makersbnb_signup.jpg)
 
 * Created features flow chart:
 ![Makers BnB flowchart](/Users/student/Google_Drive/environment/makers_notes/images/makersbnb_flowchart.1.jpg)
