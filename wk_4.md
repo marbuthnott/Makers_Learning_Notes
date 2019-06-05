@@ -1,4 +1,4 @@
-## Week 3
+## Week 4
 ## w/c 20th May 2019
 
 ### Weekly Questions
@@ -17,6 +17,37 @@
 * ENVIRONMENTAL variables??
 
 * Step 11 on bookmark challenge. When adding a `url`. Tests passing yet throwing error when feature testing it through `rackup`. Also walkthrough suggests it should be failing.
+
+* RESTful??
+
+* Persisted data??
+In spec file:
+```
+  describe '.create' do
+    it 'creates a new bookmark' do
+      bookmark = Bookmarks.create(url: 'http://www.makersacademy.com', title: 'Makers')
+      persisted_data = persisted_data(id: bookmark.id)
+
+      expect(bookmark).to be_a Bookmarks 
+      expect(bookmark.id).to eq persisted_data.first['id']
+      expect(bookmark.title).to eq 'Makers'
+      expect(bookmark.url).to eq "http://www.makersacademy.com"
+    end
+  end
+```
+In database_helper.rb:
+```
+require 'pg'
+
+def persisted_data(id:)
+  conn = PG.connect(dbname: 'bookmark_manager_test')
+  result = conn.query("SELECT * FROM bookmarks WHERE id = #{id};")
+  result
+end
+```
+* How to params work??
+
+* What does '__' (double underscore do?)
 
 ## Mon 20th May 2019
 
@@ -396,3 +427,64 @@ Here `end.to_s` will return the string representation out of this route
 * Project to diagram the Entity relationships. Draw.io file stored in ./workshops/practicals/daily-diary
 
 ![Daily Diary Workshop](https://github.com/marbuthnott/makers_learning_notes/blob/master/images/Untitled%20Diagram.jpg)
+
+### Afternoon Pairing - Bookmark Challenge
+
+* w/ Vlad
+
+* HTML code `placeholder` prints required text in the field.
+
+* Four actions to take with persistent data:
+  * Creating data
+  * Reading data
+  * Updating data
+  * Deleting data
+
+## Mon 20th May 2019
+
+**Daily Goals**
+
+* Model the Daily Diary web app. [Daily Diary](https://github.com/toddpla/daily-diary)
+* Read up on RESTful APIs.
+
+**Goals Completed**
+
+### Weekly Retrospective
+
+HIGH LEVEL GOALS:
+* Seek more feedback
+* Modeling every project that I do ahead of starting. A model included in every README.md.
+
+WHAT WENT WELL:
+* Focusing morning learning to make best use of time.
+
+WHAT COULD HAVE GONE BETTER:
+* Fell behind on walkthrough. Completing it this week and have a full understanding has been too much.
+* Coming across hurdles within the the walkthrough where the code is difficult to follow.
+
+WHAT WILL YOU CHANGE:
+
+### Afternoon Pairing - Bookmark
+
+REST:
+* naming convention
+* Representational State Transfer
+* Interoperability between computer systems.
+* Use of CRUD
+* SOAP is a competitor. However less interoperable with HTTP.
+
+* `target="_blank"` used in `form` within HTML. Opens the next page on another tab as opposed to reloading same page.
+
+* `first('.bookmark').click_button 'Delete'` I've used Capybara's first method to click the Delete button inside the first element with class 'bookmark'.
+
+* *Object Relational Mapping* -> Object relational mapping in computer software is a programming technique for converting data between incompatible type systems in object-oriented programming languages.
+
+## Sun 26th May 2019
+
+### Chitter Challenge
+
+**Travis CI**
+
+* CI - Continuous Integration. The practice of merging in small code changes frequently - rather than merging in a large change at the end of a development cycle. The goal is to build healthier software by developing and testing in smaller increments. 
+
+* Travis CI supports your development process by automatically building and testing code changes, providing immediate feedback on the success of the change. 
