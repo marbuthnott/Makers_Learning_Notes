@@ -79,6 +79,27 @@ DataMapper comes with the ability to use the same API to talk to a multitude of 
 
 ## Wednesday 5th June 2019
 
+### Portfolio Review
+
+* w/ Alice
+
+GROW COLLABORATIVELY
+* At the end of Makers BnB project write a couple of bullet points about one another.
+
+REFACTOR ANYTHING
+* A git commit. Wanted to make it drier. Wanted to create encapsulation.
+
+DEBUG
+* Screen recording
+
+PROBLEM SOLVING
+* Documented MA approach.
+
+CAN LEARN ANYTHING
+* Evidence of learning a new language. DataMapper and JavaScript
+
+
+
 ### Makers BnB
 
 * Finalised sign in and login functions on Makers BnB. Working with Cosmin.
@@ -88,3 +109,24 @@ DataMapper comes with the ability to use the same API to talk to a multitude of 
 
 * Created features flow chart:
 ![Makers BnB flowchart](./images/makersbnb_flowchart.1.jpg)
+
+* Great CSS framework [Bootstrap](https://getbootstrap.com/docs/3.4/css/)
+
+## Thursday 6th June 2019
+
+**Daily Goals**
+
+* Continued work on Makers BnB
+
+## Friday 7th June 2019
+
+**Daily Goals**
+
+* Use of timecop in Makers BnB.
+* Add time to add booking.
+* Refactoring feature tests.
+* Working on the views.
+* README.md
+
+
+
