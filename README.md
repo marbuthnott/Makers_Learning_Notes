@@ -1,9 +1,7 @@
 # makers_learning_notes
 
-## Introduction to the project
+## Introduction
 
-The purpose of Makers_Learning_Notes is to document my progress and learning over the course of the [Makers Academy](https://makers.tech/) software engineering programme.
+These are my learning notes from the start of my software engineering journey in March 2019.
 
-The notes will record learning on a weekly basis.
-
-## Contents
+I have tried to record notes on a weekly basis and have just about managed it (less a few missed weeks). They include everything from seminar notes through to step-by-step development process guides of my various projects.
