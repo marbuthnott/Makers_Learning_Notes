@@ -11,6 +11,12 @@ multi line comments with `/*` and `*/`. Can also be used to comment out the midd
 * *Symbol*, unique identifier.
 * *Object*, collection of related data.
 
+## GUARD CLAUSE
+
+Simple guard clause
+
+`sentence.includes(word)? 'is' : 'is not'`
+
 ## TYPEOF
 
 `typeof` will return the type the javascript item is. *note if item is array `typeof` will still return `'object'`*
@@ -108,8 +114,7 @@ console.log(animals.slice(1, 5));
 // expected output: Array ["bison", "camel", "duck", "elephant"]
 ```
 
-
-*CodeWars*:
+## CODEWARS
 
 ```js
 function accum(s) {
@@ -158,3 +163,197 @@ function wave(str){
     return result;
 }
 ```
+
+* solomonQuest
+Here are what the values of each subarray represent:
+
+  * Time Dilation: With each additional layer of time dilation entered, time slows by a factor of 2. At layer 0, time passes normally. At layer 1, time passes at half the rate of layer 0. At layer 2, time passes at half the rate of layer 1, and therefore one quarter the rate of layer 0.
+  * Directions are as follow: 0 = North, 1 = East, 2 = South, 3 = West
+  * Distance Traveled: This represents the distance traveled relative to the current time dilation layer. See below:
+
+Input: `[[1,3,5],[2,0,10],[-3,1,4],[4,2,4],[1,1,5],[-3,0,12],[2,1,12],[-2,2,6]]`
+Output: `[346,40]`
+
+```js
+function solomonsQuest(ar){
+  const quest = {
+    dilation: 0,
+    location: [0, 0],
+  }
+  
+  for (let [dilation, direction, distance] of ar) {
+    quest.dilation += dilation
+    
+    for (let i = 0; i < quest.dilation; i++) {
+      distance *= 2
+    }
+    
+    if (direction === 0) {
+      quest.location[1] += distance
+    } else if (direction === 1) {
+      quest.location[0] += distance
+    } else if (direction === 2) {
+      quest.location[1] -= distance
+    } else if (direction === 3) {
+      quest.location[0] -= distance
+    }
+  }
+  
+  return quest.location
+}
+```
+
+* String Mix
+
+```js
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+function mix(s1, s2) {
+  return alphabet
+    .map(char => {
+      const s1Count = s1.split('').filter(x => x === char).length,
+            s2Count = s2.split('').filter(x => x === char).length,
+            maxCount = Math.max(s1Count, s2Count);
+
+      return {
+        char: char,
+        count: maxCount,
+        src: maxCount > s1Count ? '2' : maxCount > s2Count ? '1' : '='
+      };
+    })
+    .filter(c => c.count > 1)
+    .sort((objA, objB) => objB.count - objA.count || (objA.src + objA.char > objB.src + objB.char ? 1 : -1))
+    .map(c => `${c.src}:${c.char.repeat(c.count)}`)
+    .join('/');
+}
+```
+
+## Creating objects JavaScript
+
+Great link for an intro into JavaScript classes: [Link](https://medium.com/tech-tajawal/javascript-classes-under-the-hood-6b26d2667677)
+
+### The Constructor Function
+
+```js
+
+function Human(firstName, lastName) {
+	this.firstName = firstName,
+	this.lastName = lastName,
+	this.fullName = function() {
+		return this.firstName + " " + this.lastName;
+	}
+}
+
+var person1 = new Human("Virat", "Kohli");
+```
+
+Each time a copy of the above function is created (i.e. a `person` is created) it will create the constructor function with copies of all properties and methods.
+
+### Prototypes
+
+When a function is created in JavaScript, the JavaScript engine adds a prototype property to the function. This prototype property is an object (called as prototype object) which has a constructor property by default. The constructor property points back to the function on which prototype object is a property. We can access the function’s prototype property using functionName.prototype.
+
+![Prototypes](./images/prototype.png)
+
+As shown in the above image, Human constructor function has a prototype property which points to the prototype object. The prototype object has a constructor property which points back to the Human constructor function. Let’s see an example below:
+
+`console.log(person1);` will return the prototype object
+
+`console.log(Human.prototype)` will access the prototype property of the Human constructor function.
+
+now if we create a second object `person2` using the `Human` constructor function
+
+![Second Object](./images/prototype2.png)
+
+**Prototype Object**
+
+As prototype object is an object, we can attach properties and methods to the prototype object. Thus, enabling all the objects created using the constructor function to share those properties and methods.
+
+The new property can be added to the constructor function’s prototype property using either the dot notation or square bracket notation as shown below:
+
+```js
+Human.prototype.name = "Ashwin";
+console.log(Human.prototype.name)//Output: Ashwin
+
+//Square bracket notation
+Human.prototype["age"] = 26;
+console.log(Human.prototype["age"]); //Output: 26
+
+console.log(Human.prototype);
+```
+
+will equal:
+![console output](./images/consolePrototypeObject.png)
+
+How to construct objects:
+
+```js
+//Define the object specific properties inside the constructor
+function Human(name, age){
+	this.name = name,
+	this.age = age,
+	this.friends = ["Jadeja", "Vijay"]
+}
+//Define the shared properties and methods using the prototype
+Human.prototype.sayName = function(){
+	console.log(this.name);
+}
+//Create two objects using the Human constructor function
+var person1 = new Human("Virat", 31);
+var person2 = new Human("Sachin", 40);
+
+//Lets check if person1 and person2 have points to the same instance of the sayName function
+console.log(person1.sayName === person2.sayName) // true
+
+//Let's modify friends property and check
+person1.friends.push("Amit");
+
+console.log(person1.friends)// Output: "Jadeja, Vijay, Amit"
+console.log(person2.friends)//Output: "Jadeja, Vijay"
+```
+
+### Module Exports
+
+Useful youtube video at [link](https://www.youtube.com/watch?v=x6_EovBxST4)
+
+**Simple Form**
+In person.js:
+```js
+var person = function() {
+  console.log('I am a person');
+}
+
+module.exports = person;
+```
+
+In app.js where we are invoking `person`:
+```js
+var person = require('./person')
+person();
+```
+This will return `I am a person`
+
+**Sharing multiple functions**
+In person.js:
+```js
+var person = function() {
+  console.log('I am a person');
+}
+
+var anotherPerson = function() {
+  console.log('I am another person')
+}
+
+module.exports = {
+  person: person,
+  anotherPerson: anotherPerson
+};
+```
+
+In app.js where we are invoking `person`:
+```js
+var people = require('./person');
+people.person();
+people.anotherPerson()
+```
+This will return `I am a person`
