@@ -357,3 +357,266 @@ people.person();
 people.anotherPerson()
 ```
 This will return `I am a person`
+
+### JAVASCRIPT THEORY
+
+[Official MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
+
+#### OVERVIEW
+
+JavaScript is a multi-paradigm, dynamic language with types and operators, standard built-in objects, and methods. JavaScript supports object-oriented programming with object prototypes, instead of classes. Also supports functional programming - because they are objects, functions may be stored in variables and passed around like any other object.
+
+#### TYPES
+
+* `Number` - JavaScript object is a wrapper object allowing you to work with numerical values. Has a number of properties and methods you can employ. Is represented by `[Number: 123]`.
+* `String` - A global object is a constructor for strings.
+* `Boolean` - An object wrapper for a boolean value.
+* `Object` - `Object` constructor creates an object wrapper. There are a few special type of object:
+  - `Function` - `Function` constructor creates a new function object.
+  - `Date`
+  - `RegExp` (Regular Expression)
+  - `Array`
+* `Symbol` - Primitive data type. Only purpose to act as an identifier for object properties.
+* and `undefined` and `null`.
+
+**NUMBERS**
+
+No such thing as an integer in JavaScript. Integer values are treated as 32-bit ints and some implementations even store it.
+
+All the standard arithmetic operators are supported. There's also a built-in object called `Math` that provides advanced mathematical functions and constants.
+
+Use `parseInt('11')` to return a number. If it is not a number `NaN` will be returned.
+
+#### CLASSES
+
+Are "special functions", and just as you can define function expressions and function declarations, the class syntax has two components: class expressions and class declarations.
+
+class expression:
+```js
+var Rectangle = class {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+  area() {
+    return this.height * this.width;
+  }
+}
+
+console.log(new Rectangle(5,8).area());
+// expected output: 40
+```
+Uses prototype based inheritance.
+
+class declaration:
+```js
+class Polygon {
+  constructor(height, width) {
+    this.area = height * width;
+  }
+}
+
+console.log(new Polygon(4,3).area);
+// expected output: 12
+```
+
+* `constructor` - special method for creating an initialising an object created with a class. Can only be one `constructor`.
+* `strict` mode. body of a class is always executed in strict mode. code is written to stricter syntax for increased performance.
+* `prototype` methods - regular method declaration within a class.
+* `static` methods - static methods are called without instantiating their class and cannot be called through a class instance:
+```js
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  static distance(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+
+    return Math.hypot(dx, dy);
+  }
+}
+
+const p1 = new Point(5, 5);
+const p2 = new Point(10, 10);
+p1.distance; //undefined
+p2.distance; //undefined
+
+console.log(Point.distance(p1, p2)); // 7.0710678118654755
+```
+
+
+
+#### VARIABLES
+
+The important difference between JavaScript and most other languages is that blocks do not have scope; only functions have a scope. So if a variable is defined using `let` in a compound statement (for example inside an `if` control structure), it will be visible to the entire function.
+
+**VARIABLE DECLARATION**
+
+`const`, `let`, and `var`
+
+*var*
+
+* Function scope.
+* Hoisted
+* Can be reassigned
+* Can be redeclared
+
+*let*
+
+* Block scope
+* Cannot be hoisted
+* Can be reassigned
+* Cannot be redeclared
+
+*const*
+
+* Block scope
+* Cannot be hoisted
+* Cannot be reassigned
+* Cannot be redeclared
+
+1. `var` declarations are globally scoped or function scoped while `let` and `const` are block scoped.
+
+2. `var` variables can be updated and re-declared within its scope; `let` variables can be updated but not re-declared; `const` variables can neither be updated nor re-declared.
+
+3. They are all hoisted to the top of their scope but while `var` variables are initialized with `undefined`, let and const variables are not initialized.
+
+4. While `var` and `let` can be declared without being initialized, `const` must be initialized during declaration.
+
+**SCOPE**
+
+* *Global Scope* - a variable that is declared in the root of a file (i.e. outside of a function) has a global scope.
+
+* *Local Scope* - a variable that is declared in a function can only be accessed within that function. If it is called outside of the function it will return undefined.
+
+**HOISTING**
+
+Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution.
+
+Hoisting of `var` - hoisted to the top of its scope and initialized with a value of undefined.
+
+Hoisting of `let` - Just like `var`, let declarations are hoisted to the top. Unlike `var` which is initialized as undefined, the `let` keyword is not initialized. So if you try to use a let variable before declaration, you'll get a `Reference Error`.
+
+Hoisting of `const` - Just like `let`, `const` declarations are hoisted to the top but are not initialized.
+
+**CONTROL STRUCTURES**
+
+JavaScript has a similar set of control structures to other languages in the C family. Conditional statements are supported by `if`, `else`.
+
+It has `while` and `do-while` loops. The second when you wish to ensure that the body of the loop is executed at least once.
+
+It's `for` loop is the same as that in Java and C and lets you provide the control information for your loop on a single line.
+
+There is `for`..`of`:
+```js
+for (let value of array) {
+  // do something with value
+}
+```
+and `for`..`in`:
+```js
+for (let property in object) {
+  // do something with object property
+}
+```
+
+There is the `switch` statement which can be used for multiple branches based on a number or string.
+
+**OBJECTS**
+
+JavaScript objects can be thought of as a simple collection of name-value pairs. The "name" part is a JavaScript string, while the value can be any JavaScript value - including more objects.
+
+Object created with the following:
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+// Define an object
+var you = new Person('You', 24); 
+// We are creating a new person named "You" aged 24.
+```
+
+Once created an object's properties can again be accessed in one of two ways:
+```js
+// dot notation
+obj.name = 'Simon';
+var name = obj.name;
+```
+or:
+```js
+// bracket notation
+obj['name'] = 'Simon';
+var name = obj['name'];
+```
+
+Creating objects. Previous to ES6 there used to be a problem that when each object was created with the following code:
+```js
+function Person(first, last) {
+  this.first = first;
+  this.last = last;
+  this.fullName = function() {
+    return this.first + ' ' + this.last;
+  };
+  this.fullNameReversed = function() {
+    return this.last + ', ' + this.first;
+  };
+}
+```
+
+Now we can use `Person.prototype` notation. This stores methods in a single object that can be used by all instances of `Person`. It forms part of a lookup chain (that has a special name, "prototype chain"): any time you attempt to access a property of Person that isn't set, JavaScript will check Person.prototype to see if that property exists there instead. As a result, anything assigned to Person.prototype becomes available to all instances of that constructor via the this object.
+```js
+function Person(first, last) {
+  this.first = first;
+  this.last = last;
+}
+Person.prototype.fullName = function() {
+  return this.first + ' ' + this.last;
+};
+Person.prototype.fullNameReversed = function() {
+  return this.last + ', ' + this.first;
+};
+```
+
+You can also add to the prototype of built in JavaScript objects. Let's add a method to String that returns that string in reverse:
+```js
+String.prototype.reversed = function() {
+  var r = '';
+  for (var i = this.length - 1; i >= 0; i--) {
+    r += this[i];
+  }
+  return r;
+};
+```
+
+**ARRAYS**
+
+Array literal declaration: `var a = ['dog', 'cat', 'hen']`
+
+If you query a non-existent array index, you'll get a value of `undefined` in return. i.e:
+
+`typeof a[90]; // undefined`
+
+**CLOSURES**
+
+A closure is the combination of a function and the scope object in which it was created. Closures let you save state — as such, they can often be used in place of objects.
+
+Stores variables as closure props within a function.
+
+```js
+function sayHello2(name) {
+  var text = 'Hello ' + name; // Local variable
+  var say = function() { console.log(text); }
+  return say;
+}
+var say2 = sayHello2('Bob');
+say2(); // logs "Hello Bob"
+```
+
+Here the `name` variable is held as a closure property by the `say2` function object.
+
+
